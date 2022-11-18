@@ -10,9 +10,9 @@ int knapSack(int W, int wt[], int val[], int n)
 		for (int w = W; w >= 0; w--) {
 
 			if (wt[i - 1] <= w)
-            {
+                        {
 				dp[w] = max(dp[w], dp[w - wt[i - 1]] + val[i - 1]);
-            }
+                         }
 		}
 	}
 	return dp[W];
