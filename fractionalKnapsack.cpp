@@ -1,52 +1,43 @@
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-struct Item {
-	int value, weight;
-	Item(int value, int weight)
-	{
-		this->value = value;
-		this->weight = weight;
-	}
+struct object{
+    int profit;
+    int weight;
+    object(int profit,int weight)
+    {
+        this->profit=profit;
+        this->weight=weight;
+    }
 };
-
-bool cmp(struct Item a, struct Item b)
+bool compare(struct object a, struct object b)
 {
-	double r1 = (double)a.value / (double)a.weight;
-	double r2 = (double)b.value / (double)b.weight;
-	return r1 > r2;
+    double r1=(double)a.profit / (double)a.weight;
+    double r2=(double)b.profit / (double)b.weight;
+    return r1>r2;
 }
-
-double fractionalKnapsack(int W, struct Item arr[], int N)
+double fractional_knapsack(int W, struct object arr[],int N)
 {
-	sort(arr, arr + N, cmp);
-
-	double finalvalue = 0.0;
-
-	for (int i = 0; i < N; i++) {
-
-		if (arr[i].weight <= W) {
-			W -= arr[i].weight;
-			finalvalue += arr[i].value;
-		}
-
-		else {
-			finalvalue
-				+= arr[i].value
-				* ((double)W / (double)arr[i].weight);
-			break;
-		}
-	}
-
-	return finalvalue;
+    sort(arr,arr+N,compare);
+    double FinalProfit=0.0;
+    for(int i=0;i<N;i++)
+    {
+        if(arr[i].weight<=W)
+        {
+            W=W-arr[i].weight;
+            FinalProfit=FinalProfit+arr[i].profit;
+        }else{
+            FinalProfit=FinalProfit+((double)W/(double)arr[i].weight)*arr[i].profit;
+            break;
+        }
+    }
+    return FinalProfit;
 }
-
 int main()
 {
-	int W = 50;
-	Item arr[] = { { 60, 10 }, { 100, 20 }, { 120, 30 } };
+    int W = 50;
+	object arr[] = { { 60, 10 }, { 100, 20 }, { 120, 30 } };
 	int N = sizeof(arr) / sizeof(arr[0]);
-	cout << fractionalKnapsack(W, arr, N);
-	return 0;
+    cout<<fractional_knapsack(W,arr,N);
+    return 0;
 }
